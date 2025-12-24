@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum Role {
+  ADMIN
+  PM
+  EMPLOYEE
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+}
+
+
+model JobPosition {
+  id          Int    @id @default(autoincrement())
+  jobTitle    String
+  skills      String
+  description String
+  department  String
+
+  users User[]
+
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String @unique
+  password  String
+  role      Role
+
+  jobPositionId Int
+  jobPosition   JobPosition @relation(fields: [jobPositionId], references: [id])
+
+  projects     Project[] @relation("PMProjects")
+  tasks        Task[]    @relation("EmployeeTasks")
+  comments     Comment[]
+  chatMessages ChatMessage[]
+
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String?
+
+  pmId Int
+  pm   User @relation("PMProjects", fields: [pmId], references: [id])
+
+  tasks Task[]
+
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String?
+  status      TaskStatus @default(PENDING)
+
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+
+  employeeId Int
+  employee   User @relation("EmployeeTasks", fields: [employeeId], references: [id])
+
+  progresses TaskProgress[]
+  comments   Comment[]
+  chats      ChatMessage[]
+
+  createdAt DateTime @default(now())
+}
+
+model TaskProgress {
+  id      Int @id @default(autoincrement())
+  detail  String
+  percent Int
+
+  taskId Int
+  task   Task @relation(fields: [taskId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id      Int @id @default(autoincrement())
+  message String
+
+  taskId Int
+  task   Task @relation(fields: [taskId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model ChatMessage {
+  id      Int @id @default(autoincrement())
+  message String
+
+  taskId Int
+  task   Task @relation(fields: [taskId], references: [id])
+
+  senderId Int
+  sender   User @relation(fields: [senderId], references: [id])
+
+  createdAt DateTime @default(now())
+}
