@@ -93,7 +93,7 @@ export default function AuthCard() {
                 className=" border-white mb-8 text-white hover:bg-white/10"
                 onClick={() => router.push("/login")}
               >
-                SIGN UP
+                SIGN IN
               </ButtonForAuth>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function AuthCard() {
                 className=" border-white mb-8 text-white hover:bg-white/10"
                 onClick={() => router.push("/register")}
               >
-                SIGN IN
+                SIGN UP
               </ButtonForAuth>
             </div>
           </div>

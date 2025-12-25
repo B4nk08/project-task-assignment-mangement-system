@@ -6,7 +6,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
 enum Role {
   ADMIN
   PM
@@ -19,103 +18,107 @@ enum TaskStatus {
   DONE
 }
 
-
 model JobPosition {
-  id          Int    @id @default(autoincrement())
-  jobTitle    String
-  skills      String
-  description String
+  id          Int      @id @default(autoincrement())
+  jobTitle    String   @unique
+  skills      String?  
+  description String?
   department  String
 
-  users User[]
-
-  createdAt DateTime @default(now())
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String @unique
-  password  String
-  role      Role
+  id            Int          @id @default(autoincrement())
 
-  jobPositionId Int
-  jobPosition   JobPosition @relation(fields: [jobPositionId], references: [id])
+  fullName      String
 
-  projects     Project[] @relation("PMProjects")
-  tasks        Task[]    @relation("EmployeeTasks")
-  comments     Comment[]
-  chatMessages ChatMessage[]
+  email         String       @unique
+  password      String
+  role          Role         @default(EMPLOYEE)
+  refreshToken String? 
 
-  createdAt DateTime @default(now())
+  jobPositionId Int?
+  jobPosition   JobPosition? @relation(fields: [jobPositionId], references: [id])
+
+  projects      Project[]    @relation("PMProjects")
+  tasks         Task[]       @relation("EmployeeTasks")
+  comments      Comment[]
+  chatMessages  ChatMessage[]
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 model Project {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String?
 
-  pmId Int
-  pm   User @relation("PMProjects", fields: [pmId], references: [id])
+  pmId        Int
+  pm          User     @relation("PMProjects", fields: [pmId], references: [id])
 
-  tasks Task[]
+  tasks       Task[]
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Task {
-  id          Int        @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
   description String?
-  status      TaskStatus @default(PENDING)
+  status      TaskStatus   @default(PENDING)
 
-  projectId Int
-  project   Project @relation(fields: [projectId], references: [id])
+  projectId   Int
+  project     Project      @relation(fields: [projectId], references: [id])
 
-  employeeId Int
-  employee   User @relation("EmployeeTasks", fields: [employeeId], references: [id])
+  employeeId  Int
+  employee    User         @relation("EmployeeTasks", fields: [employeeId], references: [id])
 
-  progresses TaskProgress[]
-  comments   Comment[]
-  chats      ChatMessage[]
+  progresses  TaskProgress[]
+  comments    Comment[]
+  chats       ChatMessage[]
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model TaskProgress {
-  id      Int @id @default(autoincrement())
-  detail  String
-  percent Int
+  id        Int      @id @default(autoincrement())
+  detail    String
+  percent   Int      @default(0)
 
-  taskId Int
-  task   Task @relation(fields: [taskId], references: [id])
+  taskId    Int
+  task      Task     @relation(fields: [taskId], references: [id])
 
   createdAt DateTime @default(now())
 }
 
 model Comment {
-  id      Int @id @default(autoincrement())
-  message String
+  id        Int      @id @default(autoincrement())
+  message   String
 
-  taskId Int
-  task   Task @relation(fields: [taskId], references: [id])
+  taskId    Int
+  task      Task     @relation(fields: [taskId], references: [id])
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
 }
 
 model ChatMessage {
-  id      Int @id @default(autoincrement())
-  message String
+  id        Int      @id @default(autoincrement())
+  message   String
 
-  taskId Int
-  task   Task @relation(fields: [taskId], references: [id])
+  taskId    Int
+  task      Task     @relation(fields: [taskId], references: [id])
 
-  senderId Int
-  sender   User @relation(fields: [senderId], references: [id])
+  senderId  Int
+  sender    User     @relation(fields: [senderId], references: [id])
 
   createdAt DateTime @default(now())
 }
