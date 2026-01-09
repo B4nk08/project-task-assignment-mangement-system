@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "app/(auth)/register"
+    "app/(auth)/register",
+    "app/(main)/admin/dashboard"
   ],
   "exclude": ["node_modules"]
 }

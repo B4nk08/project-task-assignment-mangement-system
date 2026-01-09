@@ -1,18 +1,15 @@
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import Posttion from "./Position";
 
 const PositionsCard = () => {
   return (
-    // Background เต็มจอ
+
     <div className="flex items-center justify-center min-h-screen p-4">
-      {/* Main Container 900x520 */}
+
       <div className="relative w-[900px] h-[520px] bg-[#203959] rounded-[40px] shadow-2xl overflow-hidden">
-        {/* ส่วนสีขาวที่ "ทับ" อยู่ด้านบน */}
-        {/* เราใช้ absolute และกำหนดขอบขวา/บน/ล่าง ให้ชิด หรือเว้นระยะตาม figma */}
+ 
         <div className="absolute right-0 top-0 h-full w-2/3 bg-white rounded-l-[50px] flex flex-col items-center justify-center px-12 py-8 shadow-[-10px_0_30px_rgba(0,0,0,0.1)]">
-          {/* หัวข้อ */}
+
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-[#1a2b4b]">Job Position</h1>
           </div>

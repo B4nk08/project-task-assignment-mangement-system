@@ -40,7 +40,7 @@ export default function AuthCard() {
                 Forgot password
               </button>
 
-              <ButtonForAuth className="border-blue-900 mb-8  text-blue-900 hover:bg-blue-50">
+              <ButtonForAuth type="submit" from="login-form" className="border-blue-900 mb-8  text-blue-900 hover:bg-blue-50">
                 SIGN IN
               </ButtonForAuth>
             </div>
@@ -67,7 +67,7 @@ export default function AuthCard() {
               </div>
             </div>
             <div className="flex flex-col items-center w-full mt-6">
-              <ButtonForAuth className="border-blue-900 mb-8 text-blue-900 hover:bg-blue-50">
+              <ButtonForAuth type="submit" from="register-form" className="border-blue-900 mb-8 text-blue-900 hover:bg-blue-50">
                 SIGN UP
               </ButtonForAuth>
             </div>

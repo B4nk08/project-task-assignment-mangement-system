@@ -1,29 +1,14 @@
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { PositionSeclect } from "./PositionSelect";
 
 const Posttion = () => {
   return (
     <div className="flex flex-col gap-4 w-full justify-center px-4">
-      <div className="relative grid w-full items-center gap-1.5">
-        <Label
-          htmlFor="job-titel"
-          className="absolute 
-          -top-2 left-3 
-          bg-white text-xs 
-          text-gray-700"
-        >
-          Job Title
-        </Label>
-        <Input
-          id="job-titel"
-          type="text"
-          className=" py-4 px-2 
-          placeholder:text-gray-700 
-          text-gray-700 h-10 
-          border-gray-300 
-          focus:border-blue-500"
-        />
+      <div className="relative grid w-full items-center gap-2.5 py-2">
+        <PositionSeclect />
       </div>
+
       <div className=" relative grid w-full items-center gap-1.5">
         <Label
           htmlFor="skill"
@@ -61,28 +46,6 @@ const Posttion = () => {
           id="job-description"
           type="text"
           className="py-4 px-2 
-          
-          placeholder:text-gray-700 
-          text-gray-700 h-10 
-          border-gray-300 
-          focus:border-blue-500"
-        />
-      </div>
-      <div className=" relative grid w-full items-center gap-1.5">
-        <Label
-          htmlFor="depaetment-division"
-          className=" absolute 
-        -top-2 left-3 
-        text-xs 
-        bg-white 
-        text-gray-700"
-        >
-          Depaetment/Division
-        </Label>
-        <Input
-          id="depaetment-division"
-          type="text"
-          className="hpy-4 px-2 
           
           placeholder:text-gray-700 
           text-gray-700 h-10 

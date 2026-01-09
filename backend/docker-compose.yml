@@ -5,13 +5,14 @@ services:
     image: postgres:18
     container_name: task-postgres
     environment:
-      POSTGRES_USER: task-ass
+      POSTGRES_USER: task_ass
       POSTGRES_PASSWORD: bank1234
-      POSTGRES_DB: task-assignment
+      POSTGRES_DB: task_assignment
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql
+    restart: unless-stopped
 
   pgadmin:
     image: dpage/pgadmin4
@@ -21,14 +22,17 @@ services:
       PGADMIN_DEFAULT_PASSWORD: bank1234
     ports:
       - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
+    restart: unless-stopped
 
   backend:
     build: .
     container_name: task-backend
     ports:
-      - "3000:3000"
+      - "3001:3000"
     env_file:
       - .env
     volumes:
@@ -36,6 +40,8 @@ services:
       - /app/node_modules
     depends_on:
       - postgres
+    restart: unless-stopped
 
 volumes:
   postgres-data:
+  pgadmin-data:

@@ -4,18 +4,24 @@ import { cn } from "@/lib/utils";
 type ButtonForAuth = {
   children: React.ReactNode;
   className?: string;
+  type?: "button" | "submit";
+  from?: string;
   onClick?: () => void;
 };
 
 export function ButtonForAuth({
   children,
   className,
+  type = "button",
+  from,
   onClick,
 }: ButtonForAuth) {
   return (
     <Button
-      variant="outline"
+      type={type}
+      form={from}
       onClick={onClick}
+      variant="outline"
       className={cn(
         `
         w-40 h-11
